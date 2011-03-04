@@ -19,8 +19,9 @@ function Scheduler()
     this.conf={minInterval:60*1000};
 };
 Scheduler.prototype.addJob=function(id,cronMask,task)
-{
+{    
     var job = new CronJob(id,cronMask,task);
+        
     this.jobs[id]=job;
     return job;
 };
@@ -32,7 +33,7 @@ Scheduler.prototype.addAndRunJob=function(id,cronMask,task)
 };
 Scheduler.prototype.startAll=function()
 {
-    this.jobs.forEach(job.start, job);
+    for (var j in this.jobs) this.jobs[j].start();
 };
 Scheduler.prototype.stopAll=function()
 {
